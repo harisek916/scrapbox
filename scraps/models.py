@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
 # Create your models here.
 
@@ -35,7 +36,7 @@ class Scraps(models.Model):
     price=models.PositiveIntegerField()
     picture=models.ImageField(upload_to="scrapimage")
     place=models.CharField(max_length=200)
-    category=models.ForeignKey(Category,related_name="scrapcategory")
+    category=models.ForeignKey(Category,related_name="scrapcategory",on_delete=models.CASCADE)
     created_date=models.DateField(auto_now_add=True)
     options=(
         ("instock","instock"),
@@ -49,12 +50,14 @@ class Scraps(models.Model):
     
 class WishList(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="userwishlist")
-    scrap=models.ManyToManyField(Scraps,on_delete=models.CASCADE)
+    scrap=models.ManyToManyField(Scraps)
     created_date=models.DateTimeField(auto_now_add=True)
-    
 
+    def __str__(self):
+        return self.scrap.name
+    
 class Bids(models.Model):
-    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="userbids")
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="userbid")
     scrap=models.ForeignKey(Scraps,on_delete=models.CASCADE,related_name="scrapbid")
     amount=models.PositiveIntegerField()
     options=(
@@ -64,6 +67,23 @@ class Bids(models.Model):
     )
     status=models.CharField(max_length=200,choices=options,default="pending")
 
+    def __str__(self):
+        return self.scrap.name
+
+class Reviews(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    scrap=models.ForeignKey(Scraps,on_delete=models.CASCADE,related_name="scrapreview")
+    comment=models.CharField(max_length=200)
+    rating=models.PositiveIntegerField()
+    created_date=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.comment
 
 
+def create_profile(sender,created,instance,**kwargs):
 
+    if created:
+        UserProfile.objects.create(user=instance)
+
+post_save.connect(create_profile,sender=User)
