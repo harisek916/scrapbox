@@ -38,15 +38,32 @@ class Scraps(models.Model):
     category=models.ForeignKey(Category,related_name="scrapcategory")
     created_date=models.DateField(auto_now_add=True)
     options=(
-        ("forsale","forsale"),
-        ("underbiding","underniding"),
+        ("instock","instock"),
+        ("biding","biding"),
         ("soldout","soldout")
     )
-    status=models.CharField(max_length=200,choices=options,default="available")
+    status=models.CharField(max_length=200,choices=options,default="instock")
 
     def __str__(self):
         return self.name
     
+class WishList(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="userwishlist")
+    scrap=models.ManyToManyField(Scraps,on_delete=models.CASCADE)
+    created_date=models.DateTimeField(auto_now_add=True)
+    
+
+class Bids(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="userbids")
+    scrap=models.ForeignKey(Scraps,on_delete=models.CASCADE,related_name="scrapbid")
+    amount=models.PositiveIntegerField()
+    options=(
+        ("reject","reject"),
+        ("pending","pending"),
+        ("accept","accept")
+    )
+    status=models.CharField(max_length=200,choices=options,default="pending")
+
 
 
 
