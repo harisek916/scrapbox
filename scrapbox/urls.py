@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from scraps import views
 
 urlpatterns = [
@@ -24,4 +26,8 @@ urlpatterns = [
     path("login",views.SignInView.as_view(),name="signin"),
     path("logout",views.SignOutView.as_view(),name="signout"),
     path("index",views.IndexView.as_view(),name="index"),
-]
+    path("profile/<int:pk>/change",views.ProfileUpdateView.as_view(),name="profile-update"),
+    path("scrap/add",views.ScrapCreateView.as_view(),name="scrap-create"),
+    path("profile/<int:pk>",views.ProfileDetailView.as_view(),name="profile-detail"),
+    path("scraps/<int:pk>",views.ScrapDetailView.as_view(),name="scrap-detail"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

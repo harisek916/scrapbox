@@ -7,5 +7,14 @@
 </head>
 <body>
     <h3>IndexPage</h3>
+    <div class="container">
+        <a href="{%url 'profile-update' request.user.profile.id%}">add profile</a>
+        <a href="{%url 'scrap-create'%}">add scrap</a>
+        <a href="{%url 'profile-detail' request.user.profile.id%}"> profile detail</a>    
+    </div>
+    <div class="container">
+        {{data}}
+        
+    </div>
 </body>
 </html>

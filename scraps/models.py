@@ -13,8 +13,14 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
-class Category(models.Model):
-    options=(
+class Scraps(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="userscrap")
+    name=models.CharField(max_length=200)
+    condition=models.CharField(max_length=200)
+    price=models.PositiveIntegerField()
+    picture=models.ImageField(upload_to="scrapimage")
+    place=models.CharField(max_length=200)
+    category_options=(
         ("metal","metal"),
         ("plastic","plastic"),
         ("paper","paper"),
@@ -24,19 +30,7 @@ class Category(models.Model):
         ("organic","organic"),
         ("rubber","rubber")
     )
-    name=models.CharField(max_length=200,choices=options)
-
-    def __str__(self):
-        return self.name
-
-class Scraps(models.Model):
-    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="userscrap")
-    name=models.CharField(max_length=200)
-    condition=models.CharField(max_length=200)
-    price=models.PositiveIntegerField()
-    picture=models.ImageField(upload_to="scrapimage")
-    place=models.CharField(max_length=200)
-    category=models.ForeignKey(Category,related_name="scrapcategory",on_delete=models.CASCADE)
+    category=models.CharField(max_length=200,choices=category_options)
     created_date=models.DateField(auto_now_add=True)
     options=(
         ("instock","instock"),
