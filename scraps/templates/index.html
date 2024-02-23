@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>scrapbox</title>
-</head>
-<body>
-    <h3>IndexPage</h3>
-    <div class="container">
-        <a href="{%url 'profile-update' request.user.profile.id%}">add profile</a>
-        <a href="{%url 'scrap-create'%}">add scrap</a>
-        <a href="{%url 'profile-detail' request.user.profile.id%}"> profile detail</a>    
-    </div>
-    <div class="container">
-        {{data}}
-        
-    </div>
-</body>
-</html>
+{%extends 'base.html'%}
+
+{%block body_block%}
+<h3>IndexPage</h3>
+<div class="container">
+    <a href="{%url 'profile-update' request.user.profile.id%}">add profile</a>
+    <a href="{%url 'scrap-create'%}">add scrap</a>
+    <a href="{%url 'profile-detail' request.user.profile.id%}"> profile detail</a>    
+</div>
+<div class="container">
+    {{data}}
+    {%for scrap in data%}
+        <div>{{scrap.id}}={{scrap.name}}</div>
+    {%endfor%}
+    
+</div>
+{%endblock%}

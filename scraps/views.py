@@ -74,3 +74,19 @@ class ScrapDetailView(DetailView):
     template_name="scrap_detail.html"
     model=Scraps
     context_object_name="data"
+
+class ScrapUpdateView(UpdateView):
+    template_name="scrap_edit.html"
+    form_class=ScrapForm
+    model=Scraps
+
+    def get_success_url(self):
+        return reverse("index")
+    
+# localhost:8000/scraps/<int:pk>/remove
+
+class ScrapDeleteView(View):
+    def get(self,request,*args,**kwargs):
+        id=kwargs.get("pk")
+        Scraps.objects.get(id=id).delete()
+        return redirect("index")
