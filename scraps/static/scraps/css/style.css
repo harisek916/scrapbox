@@ -1,0 +1,51 @@
+
+.body-gradient1{
+    height: 100vh;
+    background-color: #4158D0;
+    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+
+}
+
+.scrap-body{
+  height: 100vh;
+  background-image: url(../images/scrap_image.jpg);
+  min-height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  backdrop-filter: blur(5px); 
+  
+}
+
+
+.section{
+    width: 35%;
+    height: 80%;
+    
+}
+.shadowed-element {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); /* Adjust the values as needed */
+}
+
+                  
+.btn-grad {
+  background-image: linear-gradient(to right, #603813 0%, #b29f94  51%, #603813  100%);
+  margin: 10px;
+  padding: 10px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;            
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+ 

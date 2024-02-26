@@ -38,6 +38,8 @@ class SignOutView(View):
         logout(request)
         return redirect("signin")
     
+
+
 class IndexView(ListView):
     template_name="index.html"
     model=Scraps

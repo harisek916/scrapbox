@@ -1,18 +1,56 @@
 <!DOCTYPE html>
+{%load static%}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>scrapbox</title>
+    <title>register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{%static 'scraps/css/style.css' %}">
 </head>
-<body>
-    <h3>RegistrationForm</h3>
-    <form action="" method="post">
-        {%csrf_token%}
-        {{form.as_p}}
-        <button type="submit">
-            register
-        </button>
-    </form>
+
+<body class="scrap-body">
+    <div class="container  h-100  d-flex justify-content-center align-items-center">
+        <div class="section rounded-3 p-5 shadowed-element">
+            <div class="text-center mb-3">
+                <h1 class="fw-bolder">Register</h1>
+            </div>
+            <form action="" method="post">
+                {%csrf_token%}
+                <div class="mb-2">
+                    <label for="" class="form-label">username</label>
+                    <input type="text" name="username" placeholder="enter username" class="form-control" required="">
+                </div>
+                <div class="mb-2">
+                    <label for="" class="form-label">email</label>
+                    <input type="text" name="email" placeholder="enter email address" class="form-control" required="">
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">password</label>
+                    <input type="password" name="password1" placeholder="Type password"  class="form-control" required="">
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">confirm password</label>
+                    <input type="password" name="password2" placeholder="confirm password"  class="form-control" required="">
+                </div>
+                <div class="d-flex justify-content-center mt-2">
+                    <button type="submit" class="w-75 btn btn-outline-light ">Register</button>
+                </div>
+
+                <div class="social-auth d-flex flex-column align-items-center">
+                    <div>
+                        <label for="" class="text-white mt-3">already have an account? <a href="{%url 'signin' %}">login</a></label>
+                    </div>
+
+                </div>
+            </form>
+
+
+        </div>
+
+    </div>
 </body>
+
 </html>
