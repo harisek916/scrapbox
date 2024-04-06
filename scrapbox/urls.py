@@ -15,21 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 from scraps import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("register",views.SignUpView.as_view(),name="signup"),
-    path("login",views.SignInView.as_view(),name="signin"),
-    path("logout",views.SignOutView.as_view(),name="signout"),
-    path("index",views.IndexView.as_view(),name="index"),
-    path("profile/<int:pk>/change",views.ProfileUpdateView.as_view(),name="profile-update"),
-    path("scrap/add",views.ScrapCreateView.as_view(),name="scrap-create"),
-    path("profile/<int:pk>",views.ProfileDetailView.as_view(),name="profile-detail"),
-    path("scraps/<int:pk>",views.ScrapDetailView.as_view(),name="scrap-detail"),
-    path("scraps/<int:pk>/change",views.ScrapUpdateView.as_view(),name="scrap-update"),
-    path("scraps/<int:pk>/remove",views.ScrapDeleteView.as_view(),name="scrap-delete"),
+    path("scraps/",include("scraps.urls")),
+    path("api/",include("api.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -8,29 +8,25 @@ class UserProfile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name="profile")
     address=models.CharField(max_length=200,null=True,blank=True)
     phone=models.CharField(max_length=200,null=True,blank=True)
-    profile_pic=models.ImageField(upload_to="profilepics",null=True,blank=True)
+    profile_pic=models.ImageField(upload_to="profilepics",null=True,blank=True,default="default.jpg")
 
     def __str__(self):
         return self.user.username
 
+class Categories(models.Model):
+    name=models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
 class Scraps(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="userscrap")
+    category=models.ForeignKey(Categories,on_delete=models.CASCADE,related_name="items",null=True)
     name=models.CharField(max_length=200)
     condition=models.CharField(max_length=200)
     price=models.PositiveIntegerField()
-    picture=models.ImageField(upload_to="scrapimage")
+    picture=models.ImageField(upload_to="scrapimage",default="scrapimage/default.png",null=True,blank=True)
     place=models.CharField(max_length=200)
-    category_options=(
-        ("metal","metal"),
-        ("plastic","plastic"),
-        ("paper","paper"),
-        ("electronic","electronic"),
-        ("textile","textile"),
-        ("glass","glass"),
-        ("organic","organic"),
-        ("rubber","rubber")
-    )
-    category=models.CharField(max_length=200,choices=category_options)
     created_date=models.DateField(auto_now_add=True)
     options=(
         ("instock","instock"),

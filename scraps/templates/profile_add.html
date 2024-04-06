@@ -1,13 +1,21 @@
 {%extends 'base.html'%}
 
 {%block body_block%}
-<div class="container">
-    <form action="" method="post" enctype="multipart/form-data">
-        {%csrf_token%}
-        {{form.as_p}}
-        <button type="submit">
-            Submit
-        </button>
-    </form>
+<div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+    <div class="mh-75 d-flex justify-content-center stpx    ">
+        <label for="id_profile_pic" class="img-thumbnail" >
+            <img src="{{request.user.profile.profile_pic.url}}" class="" alt="" width="332.4px" height="332.4px">
+        </label>    
+        <form action="" method="post" enctype="multipart/form-data" class="border   w-50 p-3 shadow">
+            <h3 class="text-center">Update Profile</h3>
+            {%csrf_token%}
+            {{form.as_p}}
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-outline-secondary">
+                    Update
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 {%endblock%}
